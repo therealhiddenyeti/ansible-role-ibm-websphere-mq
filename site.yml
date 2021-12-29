@@ -3,4 +3,4 @@
   hosts: [Yeti]
   
   roles:
-  - configure-mq
+  - configure_mq
