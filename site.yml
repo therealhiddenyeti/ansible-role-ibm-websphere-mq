@@ -1,0 +1,6 @@
+---
+- name: A role-based playbook to install and configure mq
+  hosts: [Yeti]
+  
+  roles:
+  - configure-mq
