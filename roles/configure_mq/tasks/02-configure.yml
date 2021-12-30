@@ -43,13 +43,8 @@
 
 - name: Install rpm packages
   yum:
-    name: "{{ webspheremq.unarchive_dir }}/{{ item }}"
+    name: [ 'MQSeriesRuntime-*.rpm', 'MQSeriesGSKit-*.rpm', MQSeriesServer-*.rpm ' ]
     state: present
-#  with_items: "{{ rpms.results }}"
-  with_items:
-    -  MQSeriesRuntime-*.rpm
-    -  MQSeriesGSKit-*.rpm
-    -  MQSeriesServer-*.rpm   
   become: yes
 
 - name: setmqinst path
