@@ -2,7 +2,7 @@
   mount: 
     src: nfs-server:/installers/mq/IBM_MQ_9.2.0.2_LINUX_X86-64.tar.gz
     path: /mnt
-    opts: "defaults   0 0"
+    opts: "defaults,0,0"
     state: mounted
     fstype: nfs
 
