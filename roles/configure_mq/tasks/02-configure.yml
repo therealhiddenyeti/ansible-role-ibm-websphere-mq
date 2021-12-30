@@ -43,7 +43,7 @@
 
 - name: Install rpm packages
   yum:
-    name: "{{ webspheremq.unarchive_dir }}/MQSeriesRuntime-*.rpm"
+    name: '{{ webspheremq.unarchive_dir }}'/MQSeriesRuntime-*.rpm
     disable_gpg_check: yes
     state: present
   become: yes
