@@ -6,7 +6,7 @@ environment_name: Dev1
 webspheremq:
   user: mqm
   group: mqm
-  archive_dir: /mnt/nfs/ansible/websphere-mq/
+  archive_dir: /mnt/
   unarchive_dir: "/opt/temporary/{{ environment_name }}"
   rpm_fileglobs:
   - "MQSeriesRuntime-*.rpm"
