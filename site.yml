@@ -1,6 +1,7 @@
 ---
 - name: A role-based playbook to install and configure mq
-  hosts: mq92_421fadde-8785-dc66-8cac-74cc2815e0e8
+  #hosts: mq92_421fadde-8785-dc66-8cac-74cc2815e0e8
+  hosts: Yeti
   
   roles:
   - configure_mq
