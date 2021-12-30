@@ -40,7 +40,7 @@ webspheremq_log_directory: /var/mqm/GWPCDEV/log
 webspheremq_data_directory: /var/mqm/GWPCDEV/data
 
 webspheremq_internal:
-  install_archive_path: "{{ webspheremq.archive_dir }}/{{ installer_archive }}"
+  install_archive_path: "{{ webspheremq.archive_dir }}/{{ webspheremq.installer_archive }}"
   required_directories:
   - /opt/mqm
   - /var/mqm
