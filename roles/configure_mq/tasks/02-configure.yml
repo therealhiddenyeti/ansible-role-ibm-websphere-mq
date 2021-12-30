@@ -43,7 +43,7 @@
 
 - name: Install rpm packages
   yum:
-    name: "{{ webspheremq.unarchive_dir }}/{{ item.stdout }}"
+    name: "{{ webspheremq.unarchive_dir }}/{{ item }}"
     state: present
 #  with_items: "{{ rpms.results }}"
   with_items:
