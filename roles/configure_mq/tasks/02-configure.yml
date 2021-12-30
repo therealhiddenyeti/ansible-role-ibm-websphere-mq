@@ -32,11 +32,11 @@
   become: yes
 
 - name: Accept License
-  shell: chdir="{{ webspheremq.unarchive_dir }}" && ./mqlicense.sh -accept
+  shell: chdir="{{ webspheremq.unarchive_dir }}" ./mqlicense.sh -accept
   become: yes
 
 - name: Find rpms
-  shell: chdir="{{ webspheremq.unarchive_dir }}" && ls {{ item }}
+  shell: chdir="{{ webspheremq.unarchive_dir }}" ls {{ item }}
   with_items: "{{ webspheremq.rpm_fileglobs }}"
   register: rpms
   become: yes
@@ -49,7 +49,7 @@
   become: yes
 
 - name: setmqinst path
-  shell: chdir=/opt/mqm/bin && ./setmqinst -i -p /opt/mqm
+  shell: chdir=/opt/mqm/bin ./setmqinst -i -p /opt/mqm
 
 - name: Update mqm user .profile
   template:
