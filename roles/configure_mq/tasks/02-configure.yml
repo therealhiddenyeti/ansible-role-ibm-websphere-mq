@@ -42,10 +42,11 @@
   become: yes
 
 - name: Install rpm packages
-  yum:
-    name: '{{ webspheremq.unarchive_dir/MQSeriesRuntime-*.rpm }}'
-    disable_gpg_check: yes
-    state: present
+  command: yum install -y {{ webspheremq.unarchive_dir }}/MQSeriesRuntime-*.rpm
+#  yum:
+#    name: '{{ webspheremq.unarchive_dir/MQSeriesRuntime-*.rpm }}'
+#    disable_gpg_check: yes
+#    state: present
   become: yes
 
 - name: setmqinst path
