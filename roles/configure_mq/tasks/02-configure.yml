@@ -43,7 +43,7 @@
 
 - name: Install rpm packages
   yum:
-    name: [ 'MQSeriesServer-*.rpm', 'MQSeriesRuntime-*.rpm', 'MQSeriesGSKit-*.rpm' ]
+    name: [ 'MQSeriesRuntime-*.rpm' , 'MQSeriesGSKit-*.rpm', 'MQSeriesServer-*.rpm' ]
     state: present
   become: yes
 
