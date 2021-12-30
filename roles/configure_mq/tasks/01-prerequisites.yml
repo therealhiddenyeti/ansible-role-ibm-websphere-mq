@@ -8,7 +8,7 @@
 
 - name: "Check required directories and files exist"
   stat: path="{{ item }}"
-  register: initial_file_check  register: initial_file_check
+  register: initial_file_check
   with_items:
   - "{{ webspheremq_internal.install_archive_path }}"
   become: yes
