@@ -43,7 +43,7 @@
 
 - name: Install rpm packages
   yum:
-    name: [ '"{{ webspheremq.unarchive_dir }}"/MQSeriesRuntime-*.rpm' , '"{{ webspheremq.unarchive_dir }}"/MQSeriesGSKit-*.rpm', '"{{ webspheremq.unarchive_dir }}"/MQSeriesServer-*.rpm' ]
+    name: [ '{{ webspheremq.unarchive_dir }}/MQSeriesRuntime-*.rpm' , '{{ webspheremq.unarchive_dir }}/MQSeriesGSKit-*.rpm', '{{ webspheremq.unarchive_dir }}/MQSeriesServer-*.rpm' ]
     state: present
   become: yes
 
