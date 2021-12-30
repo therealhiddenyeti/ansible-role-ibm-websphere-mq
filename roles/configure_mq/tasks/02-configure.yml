@@ -43,7 +43,8 @@
 
 - name: Install rpm packages
   yum:
-    name: [ '{{ webspheremq.unarchive_dir }}/MQSeriesRuntime-9.2.0-2.x86_64.rpm' , '{{ webspheremq.unarchive_dir }}/MQSeriesGSKit-9.2.0-2.x86_64.rpm', '{{ webspheremq.unarchive_dir }}/MQSeriesServer-9.2.0-2.x86_64.rpm' ]
+    name: [ {{ webspheremq.unarchive_dir }}/MQSeriesRuntime-*.rpm , '{{ webspheremq.unarchive_dir }}/MQSeriesGSKit-9.2.0-2.x86_64.rpm', '{{ webspheremq.unarchive_dir }}/MQSeriesServer-9.2.0-2.x86_64.rpm' ]
+    disable_gpg_check: true
     state: present
   become: yes
 
