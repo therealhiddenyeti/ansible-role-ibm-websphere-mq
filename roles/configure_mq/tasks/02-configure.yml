@@ -45,7 +45,11 @@
   yum:
     name: "{{ webspheremq.unarchive_dir }}/{{ item.stdout }}"
     state: present
-  with_items: "{{ rpms.results }}"
+#  with_items: "{{ rpms.results }}"
+  with_items:
+    -  MQSeriesRuntime*
+    -  MQSeriesGSKit*
+    -  MQSeriesServer   
   become: yes
 
 - name: setmqinst path
