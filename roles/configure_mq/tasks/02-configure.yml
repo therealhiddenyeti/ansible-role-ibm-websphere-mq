@@ -41,12 +41,12 @@
   register: rpms
   become: yes
 
-- name: pring list
+- name: prinT list
   debug:
     msg:  "{{ rpms.results }}" 
 
 - name: Install rpm packages
-  command: yum install -y {{ webspheremq.unarchive_dir }}/MQSeriesRuntime-*.rpm
+  #command: yum install -y {{ webspheremq.unarchive_dir }}/MQSeriesRuntime-*.rpm
   yum:
     name: "{{ webspheremq.unarchive_dir }}/{{ item.stdout }}"
     disable_gpg_check: yes
