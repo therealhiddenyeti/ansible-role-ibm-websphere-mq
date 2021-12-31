@@ -35,7 +35,11 @@
   shell: chdir="{{ webspheremq.unarchive_dir }}" ./mqlicense.sh -accept
   become: yes
 
-
+- name: Find rpms
+  shell: chdir="{{ webspheremq.unarchive_dir }}" ls {{ item }}
+  with_items: "{{ webspheremq.rpm_fileglobs }}"
+  register: rpms
+  become: yes
 
 - name: Install dependant MQ rpm packages
   yum:
