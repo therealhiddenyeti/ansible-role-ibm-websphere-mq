@@ -50,14 +50,17 @@
   when: (item.stdout.find('MQSeriesRuntime') != -1) or (item.stdout.find('MQSeriesGSKit') != -1) or (item.stdout.find('MQSeriesServer') != -1) or
   become: yes
 
-# - name: print_vars
-#   debug:
-#     # msg: '{{ installable_rpms  | join("package") | join(", ") }}'
-#     msg: '{{ installable_rpms | (item.stdout.find(*) != -1)' | replace('*', {{ item }}) }}'
+- name: extract version
+  set_fact:
+    mq_ver: "{{ items[1].stdout | regex_search('[-](.*)\\.rpm', '\\1') | first }}"
+
+- name: print version
+  debug:
+    msg: "{{ mq_ver }}"
 
 - name: Install user selected MQ rpm packages
   yum:
-    name: "{{ webspheremq.unarchive_dir }}/{{ item }}"
+    name: "{{ webspheremq.unarchive_dir }}/{{ item }}-{{ mq_ver }}.rpm"
     disable_gpg_check: yes
     state: present
   with_items: "{{ installable_rpms }}"
