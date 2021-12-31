@@ -35,24 +35,23 @@
   shell: chdir="{{ webspheremq.unarchive_dir }}" ./mqlicense.sh -accept
   become: yes
 
-- name: Find rpms
-  shell: chdir="{{ webspheremq.unarchive_dir }}" ls {{ item }}
-  with_items: "{{ webspheremq.rpm_fileglobs }}"
-  register: rpms
-  become: yes
 
-- name: prinT list
-  debug:
-    msg:  "{{ rpms.results }}" 
 
-- name: Install rpm packages
-  #command: yum install -y {{ webspheremq.unarchive_dir }}/MQSeriesRuntime-*.rpm
+- name: Install dependant MQ rpm packages
   yum:
     name: "{{ webspheremq.unarchive_dir }}/{{ item.stdout }}"
     disable_gpg_check: yes
     state: present
   with_items: "{{ rpms.results }}"
-  when: (item.stdout.find('MQSeriesRuntime') != -1) or (item.stdout.find('MQSeriesGSKit') != -1)
+  when: (item.stdout.find('MQSeriesRuntime') != -1) or (item.stdout.find('MQSeriesGSKit') != -1) or (item.stdout.find('MQSeriesServer') != -1)
+  become: yes
+
+- name: Install user selected MQ rpm packages
+  yum:
+    name: "{{ webspheremq.unarchive_dir }}/{{ item.stdout }}"
+    disable_gpg_check: yes
+    state: present
+  with_items: "{{ installable_rpms }}"
   become: yes
 
 - name: setmqinst path
@@ -66,6 +65,9 @@
     dest: "/home/mqm/.profile"
     mode: "0644"
 
+- name: print debug
+  debug:
+    msg:  "{{ rpms.results }}" 
 #- name: Queue Manager Creation
 #  shell: crtmqm -c "policy Center Dev" -ld {{ webspheremq_log_directory }} -md {{ webspheremq_data_directory }} -lc -lf  16384 -lp 150 -ls 50 -u {{ webspheremq.QUEUE_NAME }}.DEAD.QUEUE {{ webspheremq.QUEUE_NAME }}
 #  become_user: "{{ webspheremq.user }}"
