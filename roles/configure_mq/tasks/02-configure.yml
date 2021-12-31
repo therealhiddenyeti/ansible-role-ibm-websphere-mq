@@ -50,6 +50,10 @@
   when: (item.stdout.find('MQSeriesRuntime') != -1) or (item.stdout.find('MQSeriesGSKit') != -1) or (item.stdout.find('MQSeriesServer') != -1)
   become: yes
 
+- name: print_vars
+  debug:
+    msg: '{{ installable_rpms  | join("package") | join(", ") }}'
+
 - name: Install user selected MQ rpm packages
   yum:
     name: "{{ webspheremq.unarchive_dir }}/{{ item }}"
