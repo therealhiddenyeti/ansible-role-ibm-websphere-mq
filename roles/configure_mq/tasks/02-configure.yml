@@ -52,7 +52,7 @@
 
 - name: extract version
   set_fact:
-    mq_ver: "{{ items[1].stdout | regex_search('[-](.*)\\.rpm', '\\1') | first }}"
+    mq_ver: "{{ rpms.results[0].stdout | regex_search('[-](.*)\\.rpm', '\\1') | first }}"
 
 - name: print version
   debug:
