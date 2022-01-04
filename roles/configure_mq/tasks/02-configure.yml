@@ -46,14 +46,14 @@
   become: yes
 
 - name: Find rpms
-  shell: chdir="{{ webspheremq.unarchive_dir }}" ls {{ item }}
+  shell: chdir="{{ webspheremq.unarchive_dir }}/MQServer" ls {{ item }}
   with_items: "{{ webspheremq.rpm_fileglobs }}"
   register: rpms
   become: yes
 
 - name: Install dependant MQ rpm packages
   yum:
-    name: "{{ webspheremq.unarchive_dir }}/{{ item.stdout }}"
+    name: "{{ webspheremq.unarchive_dir }}/MQServer/{{ item.stdout }}"
     disable_gpg_check: yes
     state: present
   with_items: "{{ rpms.results }}"
@@ -70,7 +70,7 @@
 
 - name: Install user selected MQ rpm packages
   yum:
-    name: "{{ webspheremq.unarchive_dir }}/{{ item }}-{{ mq_ver }}.rpm"
+    name: "{{ webspheremq.unarchive_dir }}/MQServer/{{ item }}-{{ mq_ver }}.rpm"
     disable_gpg_check: yes
     state: present
   with_items: "{{ installable_rpms }}"
