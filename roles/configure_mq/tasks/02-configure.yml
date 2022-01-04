@@ -23,6 +23,16 @@
     path: "{{ webspheremq_internal.install_archive_path }}"
   register: package
 
+- name: Empty dest directory 
+  file:
+    state: absent
+    path: "{{ webspheremq.unarchive_dir }}"
+
+- name: Recreate directory 
+  file:
+    state: directory
+    path: "{{ webspheremq.unarchive_dir }}"
+
 - name: Fail when package unavailable
   fail: "msg='Install archive not found path: {{ webspheremq_internal.install_archive_path }}'"
   when: package.stat.exists == False
