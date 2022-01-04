@@ -42,7 +42,7 @@
   become: yes
 
 - name: Accept License
-  shell: chdir="{{ webspheremq.unarchive_dir }}" ./mqlicense.sh -accept
+  shell: chdir="{{ webspheremq.unarchive_dir }}/MQServer" ./mqlicense.sh -accept
   become: yes
 
 - name: Find rpms
