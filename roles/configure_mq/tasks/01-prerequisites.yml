@@ -11,14 +11,14 @@
   register: initial_file_check
   with_items:
   - "{{ webspheremq_internal.install_archive_path }}"
-  become: yes
+  become: true
 
 - name: "Check required directories and files exist"
   stat: path="{{ item }}"
   register: initial_file_check
   with_items:
   - "{{ webspheremq_internal.install_archive_path }}"
-  become: yes
+  become: true
 
 - name: "Fail when required directories do not exist"
   fail:
@@ -30,15 +30,15 @@
   package:
     name: bc
     state: present
-  become: yes
+  become: true
 
 - name: Ensure group exists
   group: name="{{ webspheremq.group }}" state=present
-  become: yes
+  become: true
 
 - name: Ensure user exists
   user: name="{{ webspheremq.user }}" group="{{ webspheremq.group }}" state=present
-  become: yes
+  become: true
 
 - name: Ensure Filesystem directories are available
   file:
@@ -47,4 +47,4 @@
     owner: "{{ webspheremq.user }}"
     group: "{{ webspheremq.group }}"
   with_items: "{{ webspheremq_internal.required_directories }}"
-  become: yes
+  become: true

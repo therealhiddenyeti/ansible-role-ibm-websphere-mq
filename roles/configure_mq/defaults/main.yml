@@ -4,6 +4,8 @@
 environment_name: Dev1
 
 webspheremq:
+  QUEUE_MGR_NAME: "QM1"
+  DLQ_QUEUE_NAME: "{{ QUEUE_MGR_NAME }}.DEAD.QUEUE"
   user: mqm
   group: mqm
   archive_dir: /mnt
@@ -34,7 +36,7 @@ webspheremq:
     value: 3255749
   - name: net.ipv4.tcp_keepalive_time
     value: 300
-  QUEUE_NAME: "GWPC{{environment_name }}"
+
 
 webspheremq_log_directory: /var/mqm/GWPCDEV/log
 webspheremq_data_directory: /var/mqm/GWPCDEV/data

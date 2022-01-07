@@ -6,7 +6,7 @@
     state: present
     sysctl_set: yes
   with_items: "{{ webspheremq.sysctl_settings }}"
-  become: yes
+  become: true
 
 - name: Set user limits
   pam_limits:
@@ -16,7 +16,7 @@
     value: "{{ item.value }}"
     use_max: yes
   with_items: "{{ webspheremq_internal.user_limits }}"
-  become: yes
+  become: true
 
 - name: Ensure Install package is available
   stat:
@@ -39,17 +39,17 @@
 
 - name: Unarchive install archive
   unarchive: src="{{ webspheremq_internal.install_archive_path }}" dest="{{ webspheremq.unarchive_dir }}" copy=no
-  become: yes
+  become: true
 
 - name: Accept License
   shell: chdir="{{ webspheremq.unarchive_dir }}/MQServer" ./mqlicense.sh -accept
-  become: yes
+  become: true
 
 - name: Find rpms
   shell: chdir="{{ webspheremq.unarchive_dir }}/MQServer" ls {{ item }}
   with_items: "{{ webspheremq.rpm_fileglobs }}"
   register: rpms
-  become: yes
+  become: true
 
 - name: Install dependant MQ rpm packages
   yum:
@@ -58,7 +58,7 @@
     state: present
   with_items: "{{ rpms.results }}"
   when: (item.stdout.find('MQSeriesRuntime') != -1) or (item.stdout.find('MQSeriesGSKit') != -1) or (item.stdout.find('MQSeriesServer') != -1)
-  become: yes
+  become: true
 
 - name: extract version
   set_fact:
@@ -74,7 +74,7 @@
     disable_gpg_check: yes
     state: present
   with_items: "{{ installable_rpms }}"
-  become: yes
+  become: true
 
 - name: setmqinst path
   shell: chdir=/opt/mqm/bin ./setmqinst -i -p /opt/mqm
@@ -87,13 +87,10 @@
     dest: "/home/mqm/.profile"
     mode: "0644"
 
-- name: print debug
-  debug:
-    msg:  "{{ rpms.results }}" 
-#- name: Queue Manager Creation
-#  shell: crtmqm -c "policy Center Dev" -ld {{ webspheremq_log_directory }} -md {{ webspheremq_data_directory }} -lc -lf  16384 -lp 150 -ls 50 -u {{ webspheremq.QUEUE_NAME }}.DEAD.QUEUE {{ webspheremq.QUEUE_NAME }}
-#  become_user: "{{ webspheremq.user }}"
-#  become: yes
+- name: Queue Manager Creation
+  shell: crtmqm  -lc -lf  16384 -lp 150 -ls 50 -u {{ webspheremq.DLQ.QUEUE_NAME }}.DEAD.QUEUE {{ webspheremq.QUEUE_MGR_NAME }}
+  become_user: "{{ webspheremq.user }}"
+  become: true
 
 #- name: Listener Creation
 #  shell:
