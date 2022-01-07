@@ -88,7 +88,7 @@
     mode: "0644"
 
 - name: Queue Manager Creation
-  shell: crtmqm  -lc -lf  16384 -lp 150 -ls 50 -u {{ webspheremq.DLQ_QUEUE_NAME }}.DEAD.QUEUE {{ webspheremq.QUEUE_MGR_NAME }}
+  shell: crtmqm  -lc -lf  16384 -lp 150 -ls 50 -u {{ webspheremq.DLQ_QUEUE_NAME }}.DEAD.QUEUE {{ QUEUE_MGR_NAME }}
   become_user: "{{ webspheremq.user }}"
   become: true
 
