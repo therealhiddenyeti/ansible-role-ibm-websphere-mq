@@ -2,10 +2,10 @@
 # defaults file for websphere-mq
 
 environment_name: Dev1
-
+QUEUE_MGR_NAME: QM1
 webspheremq:
-  QUEUE_MGR_NAME: QM1
-  DLQ_QUEUE_NAME: "{{ webspheremq.QUEUE_MGR_NAME }}.DEAD.QUEUE"
+
+  DLQ_QUEUE_NAME: "{{ QUEUE_MGR_NAME }}.DEAD.QUEUE"
   user: mqm
   group: mqm
   archive_dir: /mnt
