@@ -4,7 +4,7 @@
 environment_name: Dev1
 
 webspheremq:
-  QUEUE_MGR_NAME: "QM1"
+  QUEUE_MGR_NAME: QM1
   DLQ_QUEUE_NAME: "{{ QUEUE_MGR_NAME }}.DEAD.QUEUE"
   user: mqm
   group: mqm
